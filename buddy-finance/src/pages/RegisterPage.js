@@ -1,8 +1,7 @@
 import React from "react";
-import RegistrationForm from "../components/RegistrationForm";
+import RegistrationForm from '../components/RegistrationForm';
 
-const RegisterPage = () => {
-  return <RegistrationForm />;
+const RegisterPage = ({ setCurrentPage }) => {
+  return <RegistrationForm setCurrentPage={setCurrentPage} />;
 };
-
 export default RegisterPage;

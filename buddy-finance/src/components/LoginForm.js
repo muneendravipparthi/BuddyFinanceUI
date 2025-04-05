@@ -19,6 +19,15 @@ const LoginForm = ({ setCurrentPage }) => {
         body: JSON.stringify(loginData),
       });
 
+      if (response.ok) {
+        console.log("Login successful!");
+        const result = await response.json();
+        // Store the token in localStorage or sessionStorage
+        localStorage.setItem('authToken', "Bearer " + result.token);
+        // Redirect to dashboard by updating currentPage
+        setCurrentPage("dashboard");
+      }
+
       if (!response.ok) {
         throw new Error('Login failed');
       }
@@ -28,13 +37,9 @@ const LoginForm = ({ setCurrentPage }) => {
         setError(result.error);
         return;
       }
-      // Store the token in localStorage or sessionStorage
-      localStorage.setItem('authToken', result.token);
-     
-      // Redirect to dashboard by updating currentPage
-      setCurrentPage("dashboard");
-    } catch (err) {
-      setError('Login failed. Please try again.');
+
+    } catch (error) {
+      setError('Login failed. Please try again.' + error.message);
     }
   };
 

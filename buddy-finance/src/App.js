@@ -2,13 +2,17 @@ import React, { useState } from "react";
 import HomePage from "./pages/HomePage"; // Home Page Component
 import RegisterPage from "./pages/RegisterPage"; // Register Page Component
 import LoginPage from "./pages/LoginPage"; // Login Page Component
+import Layout from "./components/Layout";
 import Dashboard from './pages/Dashboard';
 import ProtectedRoute from './pages/ProtectedRoute';
+import CustomersTable from './components/Customers/CustomersTable';
+import CreateCustomerForm from './components/Customers/CreateCustomerForm';
+import EditCustomerForm from './components/Customers/EditCustomerForm';
 
 function App() {
-// State to track the current active page
-const [currentPage, setCurrentPage] = useState("home");
-const [token, setToken] = useState(localStorage.getItem("authToken") || ""); // Get token from localStorage
+  // State to track the current active page
+  const [currentPage, setCurrentPage] = useState("home");
+  const [token, setToken] = useState(localStorage.getItem("authToken") || ""); // Get token from localStorage
 
   // Function to switch between pages
   const renderPage = () => {
@@ -17,14 +21,45 @@ const [token, setToken] = useState(localStorage.getItem("authToken") || ""); // 
         return <HomePage setCurrentPage={setCurrentPage} />;
       case "register":
         return <RegisterPage setCurrentPage={setCurrentPage} />;
-        case "login":
-          return <LoginPage setToken={setToken} setCurrentPage={setCurrentPage} />;
-        case "dashboard":
-          return (
-            <ProtectedRoute token={token}>
-              <Dashboard />
-            </ProtectedRoute>
-          );
+      case "login":
+        return <LoginPage setToken={setToken} setCurrentPage={setCurrentPage} />;
+      case "dashboard":
+        // return <Dashboard setCurrentPage={setCurrentPage} />;
+        return (
+          <ProtectedRoute token={token}>
+            <Layout><Dashboard setCurrentPage={setCurrentPage} /></Layout>
+          </ProtectedRoute>
+        );
+      case "customers":
+        return (
+          <ProtectedRoute token={token}>
+            <Layout>
+              <CustomersTable
+                setCurrentPage={setCurrentPage}
+                setCurrentCustomer={setCurrentCustomer}
+              />
+            </Layout>
+          </ProtectedRoute>
+        );
+      case "create-customer":
+        return (
+          <ProtectedRoute token={token}>
+            <Layout>
+              <CreateCustomerForm setCurrentPage={setCurrentPage} />
+            </Layout>
+          </ProtectedRoute>
+        );
+      case "edit-customer":
+        return (
+          <ProtectedRoute token={token}>
+            <Layout>
+              <EditCustomerForm
+                customer={currentCustomer}
+                setCurrentPage={setCurrentPage}
+              />
+            </Layout>
+          </ProtectedRoute>
+        );
       default:
         return <HomePage setCurrentPage={setCurrentPage} />;
     }

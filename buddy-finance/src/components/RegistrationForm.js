@@ -23,22 +23,22 @@ const RegistrationForm = ({ setCurrentPage }) => {
         body: JSON.stringify(registrationData),
       });
 
+      const result = await response.json();
+      if (response.ok) {
+        console.log("Registration successful!");
+        setCurrentPage("login");// Redirect to login page
+      }
       if (!response.ok) {
         throw new Error('Registration failed');
       }
-
-      const result = await response.json();
       if (result.error) {
         setError(result.error);
+        console.log("API Error:", result.error); // Debugging
         return;
       }
-      // alert("Registration successful!");
-     // Redirect to dashboard by updating currentPage
-     setCurrentPage("login");
-     
+
     } catch (error) {
-      alert(error.message);
-      alert("Error during registration. Please try again.");
+      setError('Error during registration. Please try again.' + error.message);
     }
   };
 

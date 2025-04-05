@@ -1,53 +1,69 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState } from 'react';
 
-const LoginForm = () => {
-  // Initialize formData with keys for controlled inputs
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+const LoginForm = ({ setCurrentPage }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const loginData = { email, password };
+
     try {
-      const response = await axios.post("http://127.0.0.1:5000/login", formData);
-      alert("Login successful!");
-    } catch (error) {
-      alert("Invalid credentials. Please try again.");
+      const response = await fetch('http://127.0.0.1:5000/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(loginData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Login failed');
+      }
+
+      const result = await response.json();
+      if (result.error) {
+        setError(result.error);
+        return;
+      }
+      // Store the token in localStorage or sessionStorage
+      localStorage.setItem('authToken', result.token);
+     
+      // Redirect to dashboard by updating currentPage
+      setCurrentPage("dashboard");
+    } catch (err) {
+      setError('Login failed. Please try again.');
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <div className="login-page">
       <h2>Login</h2>
-      <div>
-        <label>Email</label>
-        <input
-          type="email"
-          name="email"
-          value={formData.email} // Add value attribute for controlled input
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div>
-        <label>Password</label>
-        <input
-          type="password"
-          name="password"
-          value={formData.password} // Add value attribute for controlled input
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <button type="submit">Login</button>
-    </form>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Email</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label>Password</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+        <button type="submit">Login</button>
+      </form>
+    </div>
   );
 };
 

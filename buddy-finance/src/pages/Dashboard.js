@@ -1,6 +1,7 @@
 import React from 'react';
 
-const Dashboard = () => {
+const Dashboard = ({ setCurrentPage }) =>  {
+  console.log("setCurrentPage:", setCurrentPage);
   return (
     <div>
       <h2>Welcome to the Dashboard</h2>

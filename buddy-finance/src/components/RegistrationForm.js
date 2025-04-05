@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './RegistrationForm.css';
 
 const RegistrationForm = ({ setCurrentPage }) => {
   const [firstname, setFirstName] = useState('');

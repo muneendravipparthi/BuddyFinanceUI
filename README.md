@@ -1,1 +1,3 @@
 # BuddyFinanceUI
+
+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

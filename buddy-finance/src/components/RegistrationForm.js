@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import './RegistrationForm.css';
+import { usePage } from "../PageContext";
 
-const RegistrationForm = ({ setCurrentPage }) => {
+const RegistrationForm = () => {
+  const { setCurrentPage } = usePage();
   const [firstname, setFirstName] = useState('');
   const [lastname, setLastName] = useState('');
   const [email, setEmail] = useState('');

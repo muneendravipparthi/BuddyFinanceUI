@@ -1,27 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DataTable from "react-data-table-component";
+import { usePage } from "../../PageContext";
 
-const CustomersTable = ({ setCurrentPage, setCurrentCustomer }) => {
-    const [data, setData] = useState([
-        {
-            id: 1,
-            firstName: "John",
-            lastName: "Doe",
-            phone: "1234567890",
-            address: "123 Main St",
-            aadharNumber: "XXXX-XXXX-1234",
-        },
-        {
-            id: 2,
-            firstName: "Jane",
-            lastName: "Smith",
-            phone: "9876543210",
-            address: "456 Elm St",
-            aadharNumber: "XXXX-XXXX-5678",
-        },
-    ]);
+
+const CustomersTable = () => {
+    const { setCurrentPage, setCurrentCustomer } = usePage();
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true); // For indicating loading state
+    const token = localStorage.getItem('authToken');
+    // Fetch data from API
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch("http://127.0.0.1:5000/customers", {
+                    method: "GET",
+                    headers: {
+                        "Authorization": token,
+                        "Content-Type": "application/json",
+                    },
+                });
+                if (!response.ok) {
+                    throw new Error("Failed to fetch data");
+                }
+                const result = await response.json();
+                setData(result); // Assuming the API returns an array of customer objects
+            } catch (error) {
+                console.error("Error fetching data:", error);
+                alert("Failed to fetch customer details. Please try again.");
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchData();
+    }, []);
 
     const handleCreateCustomer = () => {
+        alert("Create Customer button clicked");
         setCurrentPage("create-customer");
     };
 
@@ -46,23 +60,27 @@ const CustomersTable = ({ setCurrentPage, setCurrentCustomer }) => {
                 </div>
             ),
         },
-        { name: "First Name", selector: (row) => row.firstName, sortable: true },
-        { name: "Last Name", selector: (row) => row.lastName, sortable: true },
-        { name: "Phone Number", selector: (row) => row.phone, sortable: true },
-        { name: "Address", selector: (row) => row.address, sortable: true },
-        { name: "Aadhar Number", selector: (row) => row.aadharNumber, sortable: true },
+        { name: "First Name", selector: (row) => row.first_name, sortable: true },
+        { name: "Last Name", selector: (row) => row.last_name, sortable: true },
+        { name: "Phone Number", selector: (row) => row.mobile, sortable: true },
+        { name: "Address", selector: (row) => row.home_address, sortable: true },
+        { name: "Aadhar Number", selector: (row) => row.aadhar_number, sortable: true },
     ];
 
     return (
         <div>
             <button onClick={handleCreateCustomer}>Create Customer</button>
-            <DataTable
-                title="Customer Details"
-                columns={columns}
-                data={data}
-                pagination
-                highlightOnHover
-            />
+            {loading ? (
+                <p>Loading customer details...</p>
+            ) : (
+                <DataTable
+                    title="Customer Details"
+                    columns={columns}
+                    data={data}
+                    pagination
+                    highlightOnHover
+                />
+            )}
         </div>
     );
 };

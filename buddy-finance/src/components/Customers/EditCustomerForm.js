@@ -1,7 +1,9 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
+import { usePage } from "../../PageContext";
 
 const EditCustomerForm = () => {
+    const { setCurrentPage } = usePage();
     const { state } = useLocation();
     const { customer } = state;
 
@@ -9,6 +11,7 @@ const EditCustomerForm = () => {
         e.preventDefault();
         console.log('Customer Updated:', customer);
         alert('Customer Updated Successfully!');
+        setCurrentPage("customers");
     };
 
     return (

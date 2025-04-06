@@ -1,7 +1,8 @@
 import React from "react";
+import { usePage } from "../PageContext";
 
-
-const HomePage = ({ setCurrentPage }) => {
+const HomePage = () => {
+  const { setCurrentPage } = usePage();
   console.log("setCurrentPage:", setCurrentPage);
   return (
     <div>

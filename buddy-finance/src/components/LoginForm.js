@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { usePage } from "../PageContext";
 
-const LoginForm = ({ setCurrentPage }) => {
+const LoginForm = () => {
+  const { setCurrentPage } = usePage();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');

@@ -1,7 +1,9 @@
 import React from "react";
 import LoginForm from "../components/LoginForm";
+import { usePage } from "../PageContext";
 
-const LoginPage = ({ setCurrentPage }) => {
+const LoginPage = () => {
+  const { setCurrentPage } = usePage();
   console.log("setCurrentPage:", setCurrentPage);
   return <LoginForm setCurrentPage={setCurrentPage} />;
 };

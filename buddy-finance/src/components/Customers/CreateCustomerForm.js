@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { usePage } from "../../PageContext";
 
 const CreateCustomerForm = () => {
+    const { setCurrentPage } = usePage();
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -13,10 +15,11 @@ const CreateCustomerForm = () => {
         e.preventDefault();
         console.log('Customer Created:', formData);
         alert('Customer Created Successfully!');
+        setCurrentPage("customers");
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} >
             <h2>Create Customer</h2>
             <input type="text" placeholder="First Name" onChange={(e) => setFormData({ ...formData, firstName: e.target.value })} />
             <input type="text" placeholder="Last Name" onChange={(e) => setFormData({ ...formData, lastName: e.target.value })} />

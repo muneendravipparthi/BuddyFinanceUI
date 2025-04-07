@@ -1,0 +1,91 @@
+.table-container {
+    margin-top: 50px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    padding: 7px;
+    background-color: #aba5a55f;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+.data-table {
+    font-family: Arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.data-table th,
+.data-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.data-table th {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+}
+
+.create-customer-btn {
+    position: absolute;
+    right: 70px;
+    /* Positions it on the right edge */
+    top: 7%;
+    /* Adjust vertical positioning if needed */
+    transform: translateY(50%);
+    /* Centers vertically relative to the screen */
+    background-color: #0078d7;
+    /* Optional: Styling */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.edit-customer-icon {
+    position: static;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #0edcbd5c;
+    border: none;
+    font-size: 24px;
+    /* Adjust icon size */
+    cursor: pointer;
+}
+
+.edit-customer-icon i {
+    color: #0078d7;
+    /* Optional: icon color */
+}
+
+.edit-customer-icon:hover i {
+    color: #005a9e;
+    /* Optional: hover effect */
+}
+
+.delete-customer-icon {
+    position: relative;
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #dc0e0e55;
+    border: none;
+    font-size: 24px;
+    /* Adjust icon size */
+    cursor: pointer;
+}
+
+.delete-customer-icon i {
+    color: #0078d7;
+    /* Optional: icon color */
+}
+
+.delete-customer-icon:hover i {
+    color: #005a9e;
+    /* Optional: hover effect */
+}

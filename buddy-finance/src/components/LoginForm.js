@@ -26,6 +26,7 @@ const LoginForm = () => {
         const result = await response.json();
         // Store the token in localStorage or sessionStorage
         localStorage.setItem('authToken', "Bearer " + result.token);
+        sessionStorage.setItem('authToken', "Bearer " + result.token);
         // Redirect to dashboard by updating currentPage
         setCurrentPage("dashboard");
       }

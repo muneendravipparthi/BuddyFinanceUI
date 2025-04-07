@@ -9,6 +9,7 @@ import ProtectedRoute from "./pages/ProtectedRoute";
 import CustomersTable from "./components/Customers/CustomersTable";
 import CreateCustomerForm from "./components/Customers/CreateCustomerForm";
 import EditCustomerForm from "./components/Customers/EditCustomerForm";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 
 const AppContent = () => {
@@ -57,12 +58,5 @@ const AppContent = () => {
       return <HomePage />;
   }
 };
-
-//   return (
-//     <Layout onSelect={setCurrentPage}>
-//       {renderContent()} {/* Render main content */}
-//     </Layout>
-//   );
-// };
 
 export default AppContent;

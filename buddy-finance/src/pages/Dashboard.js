@@ -23,40 +23,24 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard">
-      <div style={{ display: "flex" }}>
-        <LeftNavigation onSelect={handleTabChange} />
-        <div style={{ flex: 1, padding: "20px" }}>
-          {/* Render dashboard tabs and stats content only when "dashboard" tab is active */}
-          {selectedTab === "dashboard" && (
-            <>
-              <h2>Dashboard Content</h2>
-              <div className="tabs">
-                {Object.keys(statsData).map((key) => (
-                  <button
-                    key={key}
-                    className={activeTab === key ? "active-tab" : ""}
-                    onClick={() => setActiveTab(key)}
-                  >
-                    {key.charAt(0).toUpperCase() + key.slice(1)}
-                  </button>
-                ))}
-              </div>
-              <div className="stats-content">
-                <h2>{activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}</h2>
-                <p>{statsData[activeTab]}</p>
-              </div>
-            </>
-          )}
-
-          {/* Render CustomersTable component when "customers" tab is active */}
-          {selectedTab === "customers" && <CustomersTable />}
-
-          {/* Placeholder content for other tabs */}
-          {selectedTab === "accounts" && <h2>Accounts Content</h2>}
-          {selectedTab === "finance" && <h2>Finance Transactions Content</h2>}
-          {selectedTab === "expenses" && <h2>Expenses Content</h2>}
+      {/* <>
+        <h2>Dashboard Content</h2>
+        <div className="tabs">
+          {Object.keys(statsData).map((key) => (
+            <button
+              key={key}
+              className={activeTab === key ? "active-tab" : ""}
+              onClick={() => setActiveTab(key)}
+            >
+              {key.charAt(0).toUpperCase() + key.slice(1)}
+            </button>
+          ))}
         </div>
-      </div>
+        <div className="stats-content">
+          <h2>{activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}</h2>
+          <p>{statsData[activeTab]}</p>
+        </div>
+      </> */}
     </div>
   );
 };

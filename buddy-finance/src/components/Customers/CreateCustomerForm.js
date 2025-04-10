@@ -9,9 +9,9 @@ const CreateCustomerForm = ({ onBack }) => {
         address: '',
         aadharNumber: '',
     });
+    const [error, setError] = useState('');
 
     const token = localStorage.getItem('authToken'); // Retrieve the auth token
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -80,6 +80,7 @@ const CreateCustomerForm = ({ onBack }) => {
                 placeholder="Aadhar Number"
                 onChange={(e) => setFormData({ ...formData, aadharNumber: e.target.value })}
             />
+            {error && <p style={{ color: 'red' }}>{error}</p>}
             <button type="submit">Submit</button>
             <button type="button" onClick={onBack}>Cancel</button> {/* Back to table */}
         </form>

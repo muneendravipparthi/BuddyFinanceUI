@@ -13,7 +13,6 @@ const CustomersTable = () => {
     const [loading, setLoading] = useState(true);
     const [showCreateForm, setShowCreateForm] = useState(false); // Track visibility
     const token = localStorage.getItem("authToken");
-
     // Fetch customer data
     useEffect(() => {
         const fetchData = async () => {
@@ -46,11 +45,13 @@ const CustomersTable = () => {
 
     const handleBackToTable = () => {
         setShowCreateForm(false); // Show the table
+        // window.location.reload(); // Reload the page to fetch updated data
     };
 
     const handleEditCustomer = (customer) => {
         setCurrentCustomer(customer);
         setCurrentPage("edit-customer");
+        alert("edit Customer4");
     };
 
     const handleDeleteCustomer = (customer) => {

@@ -2,7 +2,6 @@ import React from "react";
 import { PageProvider } from "./PageContext"; // PageContext provider
 import AppContent from "./AppContent"; // Handles conditional rendering
 
-
 const App = () => {
   return (
     <PageProvider>

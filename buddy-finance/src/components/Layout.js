@@ -15,6 +15,7 @@ const Layout = ({ children }) => {
     const handleTabChange = (tabName) => {
         setSelectedTab(tabName); // Update the selected tab
         console.log(`Selected Tab: ${tabName}`); // Debugging log
+        console.log(`Layout.js`); // Debugging log
     };
 
     const statsData = {

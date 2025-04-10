@@ -2,8 +2,9 @@ import React from "react";
 import { usePage } from "../PageContext";
 
 const HomePage = () => {
-  const { setCurrentPage } = usePage();
+  const { setCurrentPage, navigate } = usePage();
   console.log("setCurrentPage:", setCurrentPage);
+  ;
   return (
     <div>
       <h1>Welcome to Buddy Finance</h1>
@@ -16,7 +17,7 @@ const HomePage = () => {
           fontSize: "16px",
           cursor: "pointer",
         }}
-        onClick={() => setCurrentPage("register")}
+        onClick={() => navigate("register")}
       >
         Register
       </button>
@@ -27,7 +28,7 @@ const HomePage = () => {
           fontSize: "16px",
           cursor: "pointer",
         }}
-        onClick={() => setCurrentPage("login")}
+        onClick={() => navigate("login")}
       >
         Login
       </button>

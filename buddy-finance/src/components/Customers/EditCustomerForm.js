@@ -3,7 +3,8 @@ import { useLocation } from 'react-router-dom';
 import { usePage } from "../../PageContext";
 
 const EditCustomerForm = () => {
-    const { setCurrentPage } = usePage();
+    const { setCurrentPage, setCurrentCustomer, navigate } = usePage();
+    navigate("edit-customers");
     const { state } = useLocation();
     const { customer } = state;
 

@@ -29,7 +29,7 @@ const CreateCustomerForm = ({ onBack }) => {
         };
 
         try {
-            const response = await fetch("http://127.0.0.1:5000/createCustomer", {
+            const response = await fetch("http://127.0.0.1:5000/api/v1/createCustomer", {
                 method: "POST",
                 headers: {
                     "Authorization": token,

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './CreateCustomerForm.css';
+import './styles/CreateCustomerForm.css'; // Import your CSS file
 
 const CreateCustomerForm = ({ onBack }) => {
     const [formData, setFormData] = useState({

@@ -4,54 +4,63 @@ import CreateCustomerForm from "./CreateCustomerForm";
 import { usePage } from "../../PageContext";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
-import './CustomersTable.css';
+import './styles/CustomersTable.css';
+import EditCustomerForm from "./EditCustomerForm"; // Import edit form component
+
 
 const CustomersTable = () => {
-    const { setCurrentPage, setCurrentCustomer } = usePage();
+    const { setCurrentPage, setCurrentCustomer, currentCustomer } = usePage();
     const { authToken } = useContext(AuthContext);
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [showCreateForm, setShowCreateForm] = useState(false); // Track visibility
+    const [showCreateForm, setShowCreateForm] = useState(false);
+    const [showEditForm, setShowEditForm] = useState(false);
     const token = localStorage.getItem("authToken");
-    // Fetch customer data
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch("http://127.0.0.1:5000/api/v1/customers", {
-                    method: "GET",
-                    headers: {
-                        Authorization: token,
-                        "Content-Type": "application/json",
-                    },
-                });
-                if (!response.ok) {
-                    throw new Error("Failed to fetch data");
-                }
-                const result = await response.json();
-                setData(result);
-            } catch (error) {
-                console.error("Error fetching data:", error);
-                alert("Failed to fetch customer details. Please try again.");
-            } finally {
-                setLoading(false);
+
+    // Fetch customer records from API
+    const fetchData = async () => {
+        try {
+            setLoading(true); // Set loading to true before fetching
+            const response = await fetch("http://127.0.0.1:5000/api/v1/customers", {
+                method: "GET",
+                headers: {
+                    Authorization: token,
+                    "Content-Type": "application/json",
+                },
+            });
+            if (!response.ok) {
+                throw new Error("Failed to fetch data");
             }
-        };
-        fetchData();
-    }, []);
+            const result = await response.json();
+            setData(result);
+        } catch (error) {
+            console.error("Error fetching data:", error);
+            alert("Failed to fetch customer details. Please try again.");
+        } finally {
+            setLoading(false); // Stop loading once data is fetched
+        }
+    };
+
+    // Call fetchData() initially
+    useEffect(() => {
+        if (!showEditForm && !showCreateForm) {
+            fetchData(); // Refresh customer records only when forms are closed
+        }
+    }, [showEditForm, showCreateForm]); // Depend on form visibility
 
     const handleCreateCustomer = () => {
-        setShowCreateForm(true); // Show the form
+        setShowCreateForm(true);
     };
 
     const handleBackToTable = () => {
-        setShowCreateForm(false); // Show the table
-        // window.location.reload(); // Reload the page to fetch updated data
+        setShowCreateForm(false);
+        setShowEditForm(false);
+        fetchData(); // Refresh customer records when navigating back
     };
 
     const handleEditCustomer = (customer) => {
         setCurrentCustomer(customer);
-        setCurrentPage("edit-customer");
-        alert("edit Customer4");
+        setShowEditForm(true);
     };
 
     const handleDeleteCustomer = (customer) => {
@@ -65,11 +74,11 @@ const CustomersTable = () => {
             name: "Action",
             cell: (row) => (
                 <div>
-                    <button className="edit-customer-icon" onClick={() => handleEditCustomer(row)} title="Edit Customer" >
-                        <i class="fa-solid fa-pencil"></i> {/* Replace this with your desired icon */}
+                    <button className="edit-customer-icon" onClick={() => handleEditCustomer(row)} title="Edit Customer">
+                        <i className="fa-solid fa-pencil"></i>
                     </button>
                     <button className="delete-customer-icon" onClick={() => handleDeleteCustomer(row)} title="Delete Customer">
-                        <i className="fas fa-trash"></i> {/* Replace this with your desired icon */}
+                        <i className="fas fa-trash"></i>
                     </button>
                 </div>
             ),
@@ -84,7 +93,9 @@ const CustomersTable = () => {
     return (
         <div className="table-container">
             {showCreateForm ? (
-                <CreateCustomerForm onBack={handleBackToTable} /> // Pass the handler to the form
+                <CreateCustomerForm onBack={handleBackToTable} />
+            ) : showEditForm ? (
+                <EditCustomerForm onBack={handleBackToTable} />
             ) : (
                 <>
                     <button className="create-customer-btn" onClick={handleCreateCustomer}>
@@ -107,5 +118,6 @@ const CustomersTable = () => {
         </div>
     );
 };
+
 
 export default CustomersTable;

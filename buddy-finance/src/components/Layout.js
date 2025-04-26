@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import "../styles/Layout.css";
 import LeftNavigation from "../components/LeftNavigation";
 import CustomersTable from "../components/Customers/CustomersTable"; // Import CustomersTable
+import AccountsTable from "../components/Accounts/AccountsTable"; // Import 
 import { usePage } from "../PageContext";
 
 const Layout = ({ children }) => {
@@ -56,9 +57,9 @@ const Layout = ({ children }) => {
 
                         {/* Render CustomersTable component when "customers" tab is active */}
                         {selectedTab === "customers" && <CustomersTable />}
+                        {selectedTab === "accounts" && <AccountsTable />}
 
                         {/* Placeholder content for other tabs */}
-                        {selectedTab === "accounts" && <h2>Accounts Content</h2>}
                         {selectedTab === "finance" && <h2>Finance Transactions Content</h2>}
                         {selectedTab === "expenses" && <h2>Expenses Content</h2>}
                     </div>

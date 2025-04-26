@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import '../styles/LeftNavigation.css';
+import { useNavigate } from "react-router-dom";
 
 const LeftNavigation = ({ onSelect }) => {
     const [activeTab, setActiveTab] = useState('dashboard'); // Default active tab
+    const navigate = useNavigate();
 
     const handleTabClick = (tabName) => {
         setActiveTab(tabName); // Update the active tab
-        onSelect(tabName); // Notify parent component about the tab change
+        onSelect(tabName);
+        navigate("/" + tabName)// Notify parent component about the tab change
     };
 
     return (

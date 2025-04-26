@@ -24,7 +24,7 @@ const CustomersTable = () => {
             const response = await fetch("http://127.0.0.1:5000/api/v1/customers", {
                 method: "GET",
                 headers: {
-                    Authorization: token,
+                    "Authorization": token,
                     "Content-Type": "application/json",
                 },
             });
@@ -63,9 +63,29 @@ const CustomersTable = () => {
         setShowEditForm(true);
     };
 
-    const handleDeleteCustomer = (customer) => {
-        if (window.confirm(`Are you sure you want to delete ${customer.firstName} ${customer.lastName}?`)) {
-            setData(data.filter((item) => item.id !== customer.id));
+    const handleDeleteCustomer = async (customer) => {
+        const confirmDelete = window.confirm(`Are you sure you want to delete ${customer.first_name} ${customer.last_name}?`);
+
+        if (!confirmDelete) return; // Exit if user cancels deletion
+
+        try {
+            const response = await fetch(`http://127.0.0.1:5000/api/v1/DeleteCustomer/${customer.id}`, {
+                method: "DELETE",
+                headers: {
+                    "Authorization": token,
+                    "Content-Type": "application/json",
+                },
+            });
+
+            if (response.ok) {
+                alert("Customer deleted successfully!");
+                setData(data.filter((item) => item.id !== customer.id)); // Remove from table UI
+            } else {
+                alert("Failed to delete customer.");
+            }
+        } catch (error) {
+            console.error("Error deleting customer:", error);
+            alert("An error occurred. Please try again.");
         }
     };
 

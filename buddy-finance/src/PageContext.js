@@ -16,8 +16,13 @@ export const PageProvider = ({ children }) => {
 
     // Update page state & URL path dynamically
     const navigate = (page) => {
-        setCurrentPage(page);
-        window.history.pushState({}, "", `/${page}`);
+        if (typeof page === "string" && page.trim() !== "") {
+            console.log("Navigating to:", page);
+            setCurrentPage(page);
+            window.history.pushState({}, "", `/${page}`);
+        } else {
+            console.error("Invalid page parameter:", page);
+        }
     };
 
     return (

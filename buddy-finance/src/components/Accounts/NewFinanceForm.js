@@ -17,13 +17,13 @@ const NewFinanceForm = ({ onCancel }) => {
     });
 
     const handleNavigation = (page, result) => {
-        navigate(`/${page}`, { state: result }); // Navigate with state
+        navigate(`${page}`, { state: result }); // Navigate with state
     };
 
     useEffect(() => {
         const fetchCustomers = async () => {
             try {
-                const response = await fetch("http://127.0.0.1:5000/api/v1/customers", {
+                const response = await fetch("http://127.0.0.1:5000/api/v1/customers?excludeCustomersWithActiveFinance=true", {
                     method: "GET",
                     headers: {
                         "Authorization": token,
@@ -95,6 +95,7 @@ const NewFinanceForm = ({ onCancel }) => {
 
             const result = await response.json();
             console.log("Finance Created Successfully:", result);
+            localStorage.setItem("financeData", JSON.stringify(result));
             handleNavigation("finance-installments", result);
 
         } catch (error) {

@@ -51,20 +51,20 @@
     right: 0;
     top: 50%;
     transform: translateY(-50%);
-    background: #0edcbd5c;
+    background: #fefefe;
     border: none;
-    font-size: 24px;
+    font-size: 15px;
     /* Adjust icon size */
     cursor: pointer;
 }
 
 .edit-customer-icon i {
-    color: #0078d7;
+    color: #2686d5;
     /* Optional: icon color */
 }
 
 .edit-customer-icon:hover i {
-    color: #005a9e;
+    color: #0216f7;
     /* Optional: hover effect */
 }
 
@@ -73,19 +73,23 @@
     right: -10px;
     top: 50%;
     transform: translateY(-50%);
-    background: #dc0e0e55;
+    background: #fefefe;
     border: none;
-    font-size: 24px;
+    font-size: 15px;
     /* Adjust icon size */
     cursor: pointer;
 }
 
 .delete-customer-icon i {
-    color: #0078d7;
+    color: #e37878;
     /* Optional: icon color */
 }
 
 .delete-customer-icon:hover i {
-    color: #005a9e;
+    color: #fc2828;
     /* Optional: hover effect */
+}
+
+button:hover {
+    background-color: #ffffff;
 }

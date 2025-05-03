@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from "react";
 import DataTable from "react-data-table-component";
 import NewFinanceForm from "./NewFinanceForm"; // Import the finance form
+import { usePage } from "../../PageContext";
 
 const AccountsTable = () => {
     const [accounts, setAccounts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [showFinanceForm, setShowFinanceForm] = useState(false); // Toggle state
     const token = localStorage.getItem("authToken");
+    const { setCurrentPage, navigate } = usePage();
+
+    const handleNavigation = (page) => {
+        setShowFinanceForm(true);
+        window.history.pushState({}, "", `/${page}`);
+    };
+
 
     useEffect(() => {
         const fetchAccounts = async () => {
@@ -55,7 +63,7 @@ const AccountsTable = () => {
                 <NewFinanceForm onCancel={() => setShowFinanceForm(false)} />
             ) : (
                 <>
-                    <button className="new-finance-btn" onClick={() => setShowFinanceForm(true)}>
+                    <button className="new-finance-btn" onClick={() => handleNavigation("newFinance")}>
                         New Finance
                     </button>
 

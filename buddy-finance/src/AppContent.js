@@ -65,7 +65,7 @@ const AppContent = () => {
           </Layout>
         </ProtectedRoute>
       );
-    case "new-finance":
+    case "newFinance":
       return (
         <ProtectedRoute >
           <Layout>
@@ -73,7 +73,7 @@ const AppContent = () => {
           </Layout>
         </ProtectedRoute>
       );
-    case "finance-installments":
+    case "financeInstallments":
       return (
         <ProtectedRoute >
           <Layout>

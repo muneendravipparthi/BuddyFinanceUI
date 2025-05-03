@@ -4,6 +4,7 @@ import { usePage } from "../../PageContext";
 const NewFinanceForm = ({ onCancel }) => {
     const { setCurrentPage, navigate } = usePage();
     const [customers, setCustomers] = useState([]);
+    const [showFinanceForm, setShowFinanceForm] = useState(true);
     const [error, setError] = useState('');
     const token = localStorage.getItem('authToken'); // Retrieve the auth token
     const [financeData, setFinanceData] = useState({
@@ -96,7 +97,8 @@ const NewFinanceForm = ({ onCancel }) => {
             const result = await response.json();
             console.log("Finance Created Successfully:", result);
             localStorage.setItem("financeData", JSON.stringify(result));
-            handleNavigation("finance-installments", result);
+            setShowFinanceForm(false)
+            handleNavigation("financeInstallments", result);
 
         } catch (error) {
             console.error("Error creating finance:", error);

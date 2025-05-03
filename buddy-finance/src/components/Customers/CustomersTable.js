@@ -6,6 +6,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import './styles/CustomersTable.css';
 import EditCustomerForm from "./EditCustomerForm"; // Import edit form component
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 
 const CustomersTable = () => {
@@ -94,6 +95,7 @@ const CustomersTable = () => {
             name: "Action",
             cell: (row) => (
                 <div>
+                    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css"></link>
                     <button className="edit-customer-icon" onClick={() => handleEditCustomer(row)} title="Edit Customer">
                         <i className="fa-solid fa-pencil"></i>
                     </button>
